@@ -5,21 +5,27 @@ import WalkForm from './WalkForm'
 import styled from 'styled-components';
 
 const RootFormWrapper = styled.div`
-  position: relative;
-  top: 100px;
+  /* background-color: LightBlue; */
+  display: flex;
+  margin: auto;
+  /* position: relative; */
+  /* top: 100px; */
+`
+
+const FormWrapper = styled.div`
+  display: flex;
+  margin: 5% 2%;
 `
 
 function RootForm() {
   return (
     <RootFormWrapper>
-      <Grid container spacing={1}>
-        <Grid item xs={2}>
-          <FoodForm/>
-        </Grid>
-        <Grid item xs={2}>
-          <WalkForm/>
-        </Grid>
-      </Grid>
+      <FormWrapper>
+        <FoodForm/>
+      </FormWrapper>
+      <FormWrapper>
+        <WalkForm/>
+      </FormWrapper>
     </RootFormWrapper>
   );
 }

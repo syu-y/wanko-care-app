@@ -8,11 +8,11 @@ import MenuIcon from '@material-ui/icons/Menu';
 import styled from 'styled-components';
 
 const HeaderWrapper = styled.div`
-  flex-grow: 1;
+  display: flex;
+  margin: auto;
 `
 
 const StyledAppBar = styled(AppBar)`
-  display: flex;
   position: static;
 `
 

@@ -21,7 +21,7 @@ const StyledCard = styled(Card)`
 `;
 
 const StyledCardContent = styled(CardContent)`
-  background-color: #acf
+  background-color: #afc
 `;
 
 function FoodForm() {
