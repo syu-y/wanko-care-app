@@ -7,14 +7,14 @@ import styled from 'styled-components';
 const RootFormWrapper = styled.div`
   /* background-color: LightBlue; */
   display: flex;
-  margin: auto;
+  margin: 20px auto;
   /* position: relative; */
   /* top: 100px; */
 `
 
 const FormWrapper = styled.div`
   display: flex;
-  margin: 5% 2%;
+  margin: auto;
 `
 
 function RootForm() {

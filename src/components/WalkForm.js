@@ -1,4 +1,5 @@
 import React from 'react';
+import { firestore } from "firebase/app";
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
@@ -10,10 +11,10 @@ import styled from 'styled-components';
 
 const StyledFormWrapper = styled.div`
     position: relative;
-`
+`;
 
 const StyledCheckbox = styled(Checkbox)`
-
+  background-color: #acf
 `;
 
 const StyledCard = styled(Card)`
@@ -26,6 +27,41 @@ const StyledCardContent = styled(CardContent)`
 `;
 
 function WalkForm() {
+  const [walkState, setWalkState] = React.useState({
+    first: false,
+    second: false,
+    third: false,
+  });
+
+  const handleChange = when => event => {
+    console.log(when, ":", event.target.checked);
+    setWalkState({ ...walkState, [when]: event.target.checked });
+    firestore()
+      .collection("states")
+      .doc("walk")
+      .update({
+        [when]: event.target.checked,
+      });
+  };
+
+  const docRef = firestore().collection("states").doc("walk");
+
+  React.useEffect(() => {
+    docRef.get().then(function(doc) {
+      if (doc.exists) {
+        setWalkState(doc.data());
+        console.log("Document data:", doc.data());
+      } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
+      }
+    }).catch(function(error) {
+        console.log("Error getting document:", error);
+    });
+  }, []);
+
+  const { first, second, third } = walkState;
+
   const LabelGroup ={
     title: "お散歩",
     first: "8:00 ~ 9:00",
@@ -41,15 +77,15 @@ function WalkForm() {
             <FormControl component="fieldset" className="Checked">
               <FormLabel component="legend">{LabelGroup.title}</FormLabel>
               <FormControlLabel
-                control={<StyledCheckbox/>}
+                control={<StyledCheckbox checked={first} onChange={handleChange('first')} value="first"/>}
                 label={LabelGroup.first}
               />
               <FormControlLabel
-                control={<StyledCheckbox/>}
+                control={<StyledCheckbox checked={second} onChange={handleChange('second')} value="second"/>}
                 label={LabelGroup.second}
               />
               <FormControlLabel
-                control={<StyledCheckbox/>}
+                control={<StyledCheckbox checked={third} onChange={handleChange('third')} value="third"/>}
                 label={LabelGroup.third}
               />
             </FormControl>
